@@ -1,0 +1,26 @@
+version: '3'
+# create docker network
+networks:
+  ros2:
+    driver: bridge
+
+services:
+  talker:
+    image: osrf/ros:foxy-desktop
+    container_name: talker
+    environment:
+      - ROS_DOMAIN_ID=1
+    command: ros2 run demo_nodes_cpp talker
+    networks:
+      - ros2
+    restart: always
+
+  listener:
+    image: osrf/ros:foxy-desktop
+    container_name: listener
+    environment:
+      - ROS_DOMAIN_ID=1
+    command: ros2 run demo_nodes_cpp listener
+    networks:
+      - ros2
+    restart: always
